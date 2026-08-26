@@ -1,0 +1,200 @@
+
+The Intel 8255 Programmable Peripheral Interface (PPI) chip has a total of 40 physical pins. Out of these 40 pins, 24 pins are dedicated specifically to input/output (I/O) operations, while the rest handle power, data transfer, and control signals
+
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import Sequential
+import tensorflow as tf
+
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+
+train_images = train_images.reshape(
+    (train_images.shape[0], 28 * 28)).astype('float32') / 255
+test_images = test_images.reshape(
+    (test_images.shape[0], 28 * 28)).astype('float32') / 255
+
+model = Sequential([
+    Dense(128, activation='relu', input_shape=(28 * 28,)),
+    Dense(10, activation='softmax')
+])
+
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+model.fit(train_images, train_labels, epochs=5)
+
+test_loss, test_acc = model.evaluate(test_images, test_labels)
+print(f"Test accuracy: {test_acc}")
+
+
+
+AirplaneAutomobile (cars)BirdCatDeerDogFrogHorseShipTruck
+
+
+model.compile(
+    optimizer="adam",
+    loss="categorical_crossentropy",
+    metrics=["accuracy"]
+)
+
+Train Data
+ANN :
+Output:
+Epoch 1/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 160s 103ms/step - accuracy: 0.0967 - loss: 2.3027
+Epoch 2/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 202s 103ms/step - accuracy: 0.0968 - loss: 2.3027
+Epoch 3/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 135s 86ms/step - accuracy: 0.0987 - loss: 2.3027
+Epoch 4/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 147s 94ms/step - accuracy: 0.0978 - loss: 2.3027
+Epoch 5/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 191s 87ms/step - accuracy: 0.0994 - loss: 2.3027
+<keras.src.callbacks.history.History at 0x7869d90796d0>
+
+
+Test data --> 10%
+
+# use teh ANN model to pass test data and create a classification report 
+ANN.evaluate(X_test,y_test)
+313/313 ━━━━━━━━━━━━━━━━━━━━ 10s 33ms/step - accuracy: 0.1000 - loss: 2.3026
+[2.302600145339966, 0.10000000149011612]
+
+
+Classification Report 
+                precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00      1000
+           1       0.00      0.00      0.00      1000
+           2       0.00      0.00      0.00      1000
+           3       0.00      0.00      0.00      1000
+           4       0.00      0.00      0.00      1000
+           5       0.00      0.00      0.00      1000
+           6       0.00      0.00      0.00      1000
+           7       0.00      0.00      0.00      1000
+           8       0.00      0.00      0.00      1000
+           9       0.10      1.00      0.18      1000
+
+    accuracy                           0.10     10000
+   macro avg       0.01      0.10      0.02     10000
+weighted avg       0.01      0.10      0.02     10000
+
+so moving to CNN
+Epoch 1/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 138s 89ms/step - accuracy: 0.0986 - loss: 2.3027
+Epoch 2/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 151s 94ms/step - accuracy: 0.0978 - loss: 2.3027
+Epoch 3/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 136s 87ms/step - accuracy: 0.0985 - loss: 2.3027
+Epoch 4/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 182s 116ms/step - accuracy: 0.0988 - loss: 2.3027
+Epoch 5/5
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 156s 99ms/step - accuracy: 0.0976 - loss: 2.3027
+<keras.src.callbacks.history.History at 0x7869d069a3f0>
+313/313 ━━━━━━━━━━━━━━━━━━━━ 5s 11ms/step - accuracy: 0.1020 - loss: 2.3026
+[2.30259108543396, 0.10199999809265137]
+
+
+Test - Predicted of CNN - results
+CNN- Classification Report 
+                precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00      1000
+           1       0.00      0.00      0.00      1000
+           2       0.10      0.95      0.18      1000
+           3       0.00      0.00      0.00      1000
+           4       0.13      0.01      0.01      1000
+           5       0.12      0.05      0.07      1000
+           6       0.00      0.00      0.00      1000
+           7       0.06      0.02      0.03      1000
+           8       0.00      0.00      0.00      1000
+           9       0.00      0.00      0.00      1000
+
+    accuracy                           0.10     10000
+   macro avg       0.04      0.10      0.03     10000
+weighted avg       0.04      0.10      0.03     10000
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Pkl file –Machine learning file
+	Deploying the Machine model --. Before deploy download it
+
+Import files
+Uploaded=files.upload()  --- run this code 
+
+Joblib is a popular Python library used to provide lightweight pipelining through transparent disk-caching of functions and easy, simple parallel computing.  Used to create the model in a pickle file.
+Import joblib
+Joblib.modle(“model,”deployment model.pkl)
+And then Import files  -- to upload the files
+Uploaded=files.upload()  --- run this code 
+------------------------------------------------------------------------------
+
+The easiest way to remember it
+
+CNN = Feature extraction + Classification
+
+And:
+
+Convolution → finds features
+
+ReLU → adds non-linearity
+
+Pooling → reduces size
+
+Flatten → converts feature maps to numbers
+
+Linear/Dense → performs classification
+
+CrossEntropyLoss → measures error
+
+Adam → improves the model
+
+Softmax → gives class probabilities
+
+
+Adam (Adaptive Moment Estimation) is an industry-standard optimization algorithm used to train deep learning models by dynamically updating network weights.
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+ToolCategoryMain Use CasePickleSerializationSaving general Python objects and small models.JoblibSerializationSaving models with large numerical arrays efficiently.TensorFlowDeep LearningBuilding and running enterprise-grade AI models.KerasDeep LearningWriting fast, simple neural network code inside TensorFlow.PyTorchDeep LearningFlexible, intuitive deep learning research and prototyping.GradioWeb UICreating quick, interactive visual demos for AI models.FlaskWeb FrameworkBuilding custom, full-featured web backends and APIs.
+----------------------------------------------------------
+import numpy as np
+from tensorflow import keras
+from tensorflow.keras import layers
+
+# 1. Generate dummy data for a binary classification problem
+X_train = np.random.random((1000, 20))
+y_train = np.random.randint(2, size=(1000, 1))
+X_test = np.random.random((200, 20))
+y_test = np.random.randint(2, size=(200, 1))
+
+# 2. Define the Sequential model architecture
+model = keras.Sequential([
+    # Explicitly define the input shape first
+    keras.Input(shape=(20,)), 
+    # Hidden layers
+    layers.Dense(64, activation='relu'),
+    layers.Dense(32, activation='relu'),
+    # Output layer for binary classification
+    layers.Dense(1, activation='sigmoid')
+])
+
+# 3. Configure the model for training (Compile)
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+# 4. Train the model
+model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.2)
+
+# 5. Evaluate the model performance
+loss, accuracy = model.evaluate(X_test, y_test)
+print(f"\nTest Accuracy: {accuracy:.4f}")
+
+# 6. Generate predictions
+predictions = model.predict(X_test[:5])
+print(f"Predictions for first 5 samples:\n{predictions}")
+-------------------------------------------------------------------------
